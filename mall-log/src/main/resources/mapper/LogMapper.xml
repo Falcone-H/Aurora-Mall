@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.besscroft.aurora.mall.log.mapper.LogMapper">
+
+    <resultMap id="updateLogMap" type="com.besscroft.aurora.mall.common.entity.WebLog">
+        <result column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="description" property="description"/>
+        <result column="url" property="url"/>
+        <result column="http_method" property="httpMethod"/>
+        <result column="class_method" property="classMethod"/>
+        <result column="ip" property="ip"/>
+        <result column="request_args" property="requestArgs"/>
+        <result column="response_args" property="responseArgs"/>
+        <result column="start_time" property="startTime"/>
+        <result column="spend_time" property="spendTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id
+        , username, description, url, http_method, class_method, ip, request_args, response_args, start_time, spend_time
+    </sql>
+
+    <select id="selectListByDescription" resultSets="java.util.List" resultMap="updateLogMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        web_log
+        <if test="description != null and description != ''">
+            WHERE
+            description LIKE CONCAT('%', #{description} ,'%')
+        </if>
+    </select>
+
+</mapper>

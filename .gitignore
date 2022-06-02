@@ -1,0 +1,65 @@
+*.class
+
+# Package Files #
+*.war
+*.ear
+target/
+*/target
+
+# eclipse
+.settings/
+.classpath
+.project
+logs/
+
+# idea
+.idea/
+*.iml
+
+*velocity.log*
+*/node_modules
+*/package-lock.json
+!.mvn/wrapper/maven-wrapper.jar
+
+### STS ###
+.apt_generated
+.factorypath
+.springBeans
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.ipr
+
+### NetBeans ###
+nbproject/private/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+*.log
+tmp/
+!**/nacos/target
+**/nacos/bin/work
+**/nacos/data
+**/nacos/LICENSE
+**/nacos/NOTICE
+**/nacos/target/nacos-server.jar
+
+.DS_Store
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+tests/**/coverage/
+
+# Editor directories and files
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+**/node_modules/

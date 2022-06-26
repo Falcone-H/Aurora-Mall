@@ -29,6 +29,7 @@ import org.springframework.security.web.server.authorization.ServerAccessDeniedH
 import reactor.core.publisher.Mono;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 /**
  * 资源服务器配置
@@ -80,8 +81,8 @@ public class ResourceServerConfig {
                         response.getHeaders().set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
                         response.getHeaders().set("Access-Control-Allow-Origin", "*");
                         response.getHeaders().set("Cache-Control", "no-cache");
-                        String body = JSONUtil.toJsonStr(AjaxResult.error(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.getReasonPhrase()));
-                        DataBuffer buffer = response.bufferFactory().wrap(body.getBytes(Charset.forName("UTF-8")));
+                        String body = JSONUtil.toJsonStr(AjaxResult.error(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.getReasonPhrase() + " 未授权"));
+                        DataBuffer buffer = response.bufferFactory().wrap(body.getBytes(StandardCharsets.UTF_8));
                         return response.writeWith(Mono.just(buffer))
                                 .doOnError(error -> DataBufferUtils.release(buffer));
                     });
@@ -102,8 +103,8 @@ public class ResourceServerConfig {
                         response.getHeaders().set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
                         response.getHeaders().set("Access-Control-Allow-Origin", "*");
                         response.getHeaders().set("Cache-Control", "no-cache");
-                        String body = JSONUtil.toJsonStr(AjaxResult.error(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.getReasonPhrase()));
-                        DataBuffer buffer = response.bufferFactory().wrap(body.getBytes(Charset.forName("UTF-8")));
+                        String body = JSONUtil.toJsonStr(AjaxResult.error(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.getReasonPhrase() + " token无效或者已过期自定义响应"));
+                        DataBuffer buffer = response.bufferFactory().wrap(body.getBytes(StandardCharsets.UTF_8));
                         return response.writeWith(Mono.just(buffer))
                                 .doOnError(error -> DataBufferUtils.release(buffer));
                     });

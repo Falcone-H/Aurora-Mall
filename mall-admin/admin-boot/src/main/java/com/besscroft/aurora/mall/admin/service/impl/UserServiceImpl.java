@@ -50,15 +50,15 @@ public class UserServiceImpl extends ServiceImpl<AuthUserMapper, AuthUser> imple
 
     @Override
     public AjaxResult login(String username, String password) {
-        if(StrUtil.isEmpty(username)||StrUtil.isEmpty(password)){
+        if (StrUtil.isEmpty(username) || StrUtil.isEmpty(password)) {
             log.error("用户名或密码不能为空！");
         }
         Map<String, String> params = new HashMap<>();
         params.put("client_id", AuthConstants.ADMIN_CLIENT_ID);
-        params.put("client_secret","123456");
-        params.put("grant_type","password");
-        params.put("username",username);
-        params.put("password",password);
+        params.put("client_secret", "123456");
+        params.put("grant_type", "password");
+        params.put("username", username);
+        params.put("password", password);
         AjaxResult accessToken = authFeignClient.getAccessToken(params);
         log.info("accessToken:{}", accessToken);
         redisTemplate.opsForValue().set(AuthConstants.ADMIN_CLIENT_ID + ":token:user:" + username, accessToken.get("access_token").toString());
@@ -85,8 +85,8 @@ public class UserServiceImpl extends ServiceImpl<AuthUserMapper, AuthUser> imple
         if (authUser != null) {
             List<AuthRole> authRoles = authRoleMapper.selectAuthRoleListByAdminId(authUser.getId());
             UserDto userDto = new UserDto();
-            BeanUtils.copyProperties(authUser,userDto);
-            if(CollUtil.isNotEmpty(authRoles)){
+            BeanUtils.copyProperties(authUser, userDto);
+            if (CollUtil.isNotEmpty(authRoles)) {
                 List<String> roleStrList = authRoles.stream().map(item -> item.getId() + "_" + item.getName()).collect(Collectors.toList());
                 userDto.setRoles(roleStrList);
             }
@@ -113,7 +113,7 @@ public class UserServiceImpl extends ServiceImpl<AuthUserMapper, AuthUser> imple
     @Override
     public AuthUser getCurrentAdmin() {
         String header = request.getHeader(AuthConstants.USER_TOKEN_HEADER);
-        if(StrUtil.isEmpty(header)){
+        if (StrUtil.isEmpty(header)) {
             log.error("暂未登录或token已经过期");
         }
         UserDto userDto = JSONUtil.toBean(header, UserDto.class);

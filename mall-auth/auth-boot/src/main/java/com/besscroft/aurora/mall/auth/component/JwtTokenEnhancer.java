@@ -12,9 +12,6 @@ import java.util.Map;
 
 /**
  * JWT内容增强
- *
- * @Author Bess Croft
- * @Date 2021/2/23 19:40
  */
 @Component
 public class JwtTokenEnhancer implements TokenEnhancer {

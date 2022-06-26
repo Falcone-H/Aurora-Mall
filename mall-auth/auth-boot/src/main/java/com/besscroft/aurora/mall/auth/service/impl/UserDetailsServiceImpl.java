@@ -24,7 +24,6 @@ import javax.servlet.http.HttpServletRequest;
 @Service
 @RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
-
     private final AdminFeignClient adminFeignClient;
     private final UserFeignClient userFeignClient;
     private final HttpServletRequest request;

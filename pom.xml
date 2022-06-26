@@ -257,11 +257,4 @@
         </resources>
     </build>
 
-    <developers>
-        <developer>
-            <name>besscroft</name>
-            <email>besscroft@foxmail.com</email>
-        </developer>
-    </developers>
-
 </project>

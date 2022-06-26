@@ -1,10 +1,12 @@
 package com.besscroft.aurora.mall.auth.config;
 
+import com.alibaba.nacos.common.utils.HttpMethod;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -20,6 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      * 安全拦截机制
+     *
      * @param http
      * @throws Exception
      */
@@ -27,10 +30,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/publicKey/get",
-                        "/oauth/token",
                         "/v2/api-docs",
                         "/user/loadByUsername").permitAll()
                 .anyRequest().authenticated();
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring()
+                .antMatchers("/v2/api-docs",
+                        "/configuration/**",
+                        "/swagger*/**",
+                        "/webjars/**")
+                .antMatchers(HttpMethod.OPTIONS, "/**");
     }
 
     /**

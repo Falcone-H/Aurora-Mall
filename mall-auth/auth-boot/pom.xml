@@ -84,7 +84,7 @@
 
     <build>
         <!--
-            注意：此处maven filter 可能会对 keystore 文件造成污染(被修改)
+            注意：此处 maven filter 可能会对 keystore 文件造成污染(被修改)
             https://stackoverflow.com/questions/1052700/java-io-ioexception-invalid-keystore-format
             https://stackoverflow.com/questions/26071429/ssl-java-java-io-ioexception-invalid-keystore-format/59312913#59312913
          -->

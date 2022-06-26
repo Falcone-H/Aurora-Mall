@@ -8,19 +8,34 @@
       <i style="float: right; padding: 3px 0" class="el-icon-user-solid"></i>
     </el-card>
 
-    <el-row :gutter="20" style="margin-top: 1.25rem">
-      <el-col :xs="4" :sm="6" :md="8" :lg="9" :xl="11">
+    <el-row :gutter="10" style="margin-top: 1.25rem">
+      <el-col>
         <el-card class="box-card">
           <div slot="header" class="clearfix">
-            <span>公告</span>
+            <span>开发环境</span>
             <el-button style="float: right; padding: 3px 0" type="text">更新公告</el-button>
           </div>
           <div>
-            <br />
-            <br />
-            <a href="https://github.com/besscroft/aurora-mall/blob/main/fork-and-push.md" target="_blank">--> 贡献项目 <--</a>
-            <a href="https://developer.besscroft.com/" target="_blank">--> 阅读文档 <--</a>
-            <a @click="updateLog()">--> 版本日志 <--</a>
+             <el-table
+                :data="tableData"
+                border
+                style="width: 100%">
+                <el-table-column
+                  prop="num"
+                  label="序号"
+                  width="180">
+                </el-table-column>
+                <el-table-column
+                  prop="tech"
+                  label="技术栈"
+                  width="180">
+                </el-table-column>
+                <el-table-column
+                  prop="version"
+                  label="版本"
+                  width="180">
+                </el-table-column>
+              </el-table>
           </div>
         </el-card>
       </el-col>
@@ -35,6 +50,43 @@ import GithubCorner from '@/components/GithubCorner'
 
 export default {
   name: 'Dashboard',
+  data() {
+    return {
+      tableData: [{
+        num: '1',
+        tech: 'JDK',
+        version: '14'
+      },{
+        num: '2',
+        tech: 'MySQL',
+        version: '8.0.26'
+      },{
+         num: '3',
+         tech: 'Redis',
+         version: '6.x'
+       },{
+          num: '4',
+          tech: 'Node',
+          version: '14.x'
+        },{
+           num: '5',
+           tech: 'Spring Boot',
+           version: '2.5.4'
+        },{
+           num: '6',
+           tech: 'Spring Cloud',
+           version: '2020.0.5'
+         },{
+            num: '7',
+            tech: 'Spring Cloud Alibaba',
+            version: '2021.1'
+          },{
+             num: '8',
+             tech: 'ElasticSearch',
+             version: '7.15.0'
+           }]
+    }
+  },
   components: {
     GithubCorner
   },

@@ -16,7 +16,7 @@
               首页
             </el-dropdown-item>
           </router-link>
-          <a target="_blank" href="https://github.com/besscroft/aurora-mall">
+          <a target="_blank" href="#">
             <el-dropdown-item>Github</el-dropdown-item>
           </a>
           <a target="_blank" href="http://localhost:8000/doc.html#/home">

@@ -77,6 +77,7 @@ public class AuthController {
 
         //OAuth2AccessToken oAuth2AccessToken = tokenEndpoint.postAccessToken(principal, parameters).getBody();
         OAuth2AccessToken oAuth2AccessToken = tokenEndpoint.postAccessToken(token, parameters).getBody();
+        assert oAuth2AccessToken != null;
         Oauth2Token oauth2Token = Oauth2Token.builder()
                 .token(oAuth2AccessToken.getValue())
                 .refreshToken(oAuth2AccessToken.getRefreshToken().getValue())

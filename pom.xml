@@ -20,6 +20,7 @@
         <module>mall-admin</module>
         <module>mall-elasticsearch</module>
         <module>mall-log</module>
+        <module>mall-canal</module>
     </modules>
 
     <parent>

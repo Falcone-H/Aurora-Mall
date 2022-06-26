@@ -1,0 +1,21 @@
+server:
+  port: 20500
+
+spring:
+  application:
+    name: mall-admin-canal
+  profiles:
+    active: '@spring.active@'
+  cloud:
+    nacos:
+      discovery:
+        server-addr: http://localhost:8848
+        watch-delay: 1000
+
+canal:
+  server: localhost:11111
+  destination: example
+
+logging:
+  level:
+    top.javatool.canal.client.client: OFF

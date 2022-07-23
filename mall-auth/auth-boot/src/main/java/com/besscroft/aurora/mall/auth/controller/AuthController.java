@@ -42,7 +42,7 @@ public class AuthController {
 
     @ApiOperation("根据当前用户的信息生成token")
     @GetMapping("/oauth/token")
-    public AjaxResult getAccessToken(
+    public Oauth2Token getAccessToken(
             Principal principal, @RequestParam Map<String, String> parameters)
             throws HttpRequestMethodNotSupportedException {
         log.info("GET /oauth/token");
@@ -62,29 +62,30 @@ public class AuthController {
             @ApiImplicitParam(name = "password", value = "登录密码")
     })
     @PostMapping("/oauth/token")
-    public AjaxResult postAccessToken(
+    public Oauth2Token postAccessToken(
             @ApiIgnore Principal principal,
             @ApiIgnore @RequestParam Map<String, String> parameters
     ) throws HttpRequestMethodNotSupportedException {
         log.info("POST /oauth/token");
         log.info("请求到了，parameters:{}", parameters);
-//        if (!(principal instanceof Authentication)) {
-//            throw new InsufficientAuthenticationException(
-//                    "There is no client authentication. Try adding an appropriate authentication filter.");
-//        }
-        User clientUser = new User("admin-app", "123456", new ArrayList<>());
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(clientUser, null, new ArrayList<>());
+        if (!(principal instanceof Authentication)) {
+            throw new InsufficientAuthenticationException(
+                    "There is no client authentication. Try adding an appropriate authentication filter.");
+        }
+        OAuth2AccessToken oAuth2AccessToken = tokenEndpoint.postAccessToken(principal, parameters).getBody();
 
-        //OAuth2AccessToken oAuth2AccessToken = tokenEndpoint.postAccessToken(principal, parameters).getBody();
-        OAuth2AccessToken oAuth2AccessToken = tokenEndpoint.postAccessToken(token, parameters).getBody();
+//        User clientUser = new User("admin-app", "123456", new ArrayList<>());
+//        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(clientUser, null, new ArrayList<>());
+//        OAuth2AccessToken oAuth2AccessToken = tokenEndpoint.postAccessToken(token, parameters).getBody();
+
         assert oAuth2AccessToken != null;
         Oauth2Token oauth2Token = Oauth2Token.builder()
-                .token(oAuth2AccessToken.getValue())
+                .access_token(oAuth2AccessToken.getValue())
                 .refreshToken(oAuth2AccessToken.getRefreshToken().getValue())
                 .expiresIn(oAuth2AccessToken.getExpiresIn())
                 .tokenHead(AuthConstants.JWT_TOKEN_PREFIX).build();
         log.info("生成的token:{}", oauth2Token);
-        return AjaxResult.success(oauth2Token);
+        return oauth2Token;
     }
 }
 

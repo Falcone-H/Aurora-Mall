@@ -11,7 +11,7 @@ import lombok.EqualsAndHashCode;
 public class Oauth2Token {
 
     @ApiModelProperty("访问令牌")
-    private String token;
+    private String access_token;
 
     @ApiModelProperty("刷新令牌")
     private String refreshToken;

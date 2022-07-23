@@ -30,19 +30,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/publicKey/get",
+                        "/oauth/token",
                         "/v2/api-docs",
                         "/user/loadByUsername").permitAll()
                 .anyRequest().authenticated();
-    }
-
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring()
-                .antMatchers("/v2/api-docs",
-                        "/configuration/**",
-                        "/swagger*/**",
-                        "/webjars/**")
-                .antMatchers(HttpMethod.OPTIONS, "/**");
     }
 
     /**

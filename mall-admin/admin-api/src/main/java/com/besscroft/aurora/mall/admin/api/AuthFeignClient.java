@@ -1,6 +1,7 @@
 package com.besscroft.aurora.mall.admin.api;
 
 import com.besscroft.aurora.mall.admin.api.fallback.AuthFeignFallbackClient;
+import com.besscroft.aurora.mall.common.domain.Oauth2Token;
 import com.besscroft.aurora.mall.common.result.AjaxResult;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +22,7 @@ public interface AuthFeignClient {
      * @param parameters 请求参数
      * @return Oauth2Token
      */
-    @PostMapping(value = "/auth/oauth/token")
+    @PostMapping(value = "/oauth/token")
     AjaxResult getAccessToken(@RequestParam Map<String, String> parameters);
 
 }
